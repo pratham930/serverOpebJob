@@ -211,10 +211,6 @@ static getjobsbyName = async (req, res) => {
       console.log(job)
       res.send(job)}
     
-    
-      
-    
-    
   }
 }
 // JobActivation
