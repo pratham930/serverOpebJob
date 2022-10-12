@@ -91,17 +91,10 @@ class userController {
   static addFirstDetails = async (req, res) => {
 
     try {
-      //  const {  name,landmark,adress,pincode,locality,mobile,st,pjl} = req.body;
-
-      // if (!name || !locality || !adress ) {
-      //   res.send({ "status": "failed", "message": "All Fields are Required" })
-
-      // }
+      
       const userLogin = await Singup.findOne({ _id: req.user._id })
       if (userLogin) {
-        //  console.log(userLogin._id)
-        //  console.log(req.user._id)
-        //  var objectAdress = { name,landmark,adress,pincode,locality,mobile,st,pjl}       
+         
         await Singup.findByIdAndUpdate(req.user._id, { $push: { firstfrom: req.body } })
 
         res.send({ "status": "success", "message": "addFirstDetails saved" })
@@ -194,21 +187,30 @@ const  body = {gst,cin,pan,udyan,pan,fssai,license}
 
 
 
-static getactivejobs = async (req, res) => {
-
+static getjobsbyName = async (req, res) => {
+  const {name} = req.params
+  console.log(name)
   const { _id } = req.user
-  const userLogin = await Postjob.find({createdBy:_id})
+  console.log(_id)
+  const userLogin = await Postjob.find({JobActivation:name})
   if (userLogin) {
-    console.log(userLogin)
-    for (let index = 0; index < userLogin.length; index++) {
-      const element = userLogin[index].JobActivation;
-      console.log(element)
-      if (element = "Active") {
-        res.send(element)
-        console.log(element)
-      }
+    // console.log(userLogin)
+
+
+   const job = userLogin.filter((e)=>{
+      return(e.createdBy == _id)
+    })
+    console.log(job)
+    res.send(job)
+    // for (let index = 0; index < userLogin.length; index++) {
+    //   const element = userLogin[index].JobActivation;
+    //   console.log(element)
+    //   if (element == name) {
+    //     res.send(element)
+    //     console.log(element)
+    //   }
       
-    }
+    // }
 
    
   }

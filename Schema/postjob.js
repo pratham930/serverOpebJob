@@ -192,11 +192,6 @@ const PostjobSchema = new mongoose.Schema({
   
     createdBy: { type: String },
 
-
-
- 
-
-
 },
     { timestamps: true }
 

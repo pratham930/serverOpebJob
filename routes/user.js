@@ -35,7 +35,7 @@ router.post('/addVerificationDetails', authenticate, userController.addVerificat
 //get request
 router.get('/test', userController.test);
 router.get('/getpostjobs', authenticate, userController.getpostjobs);
-router.get('/getactivejobs', authenticate, userController.getactivejobs);
+router.get('/getjobsbyName/:name', authenticate, userController.getjobsbyName);
 
 
 router.get('/about', authenticate, userController.about);
