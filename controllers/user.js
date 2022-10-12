@@ -1,4 +1,4 @@
-// import Singup from "../Schema/Registration.js";
+
 import Singup from "../Schema/Singup.js";
 import Apllyjob from "../Schema/custumer.js/aplly.js";
 import initMB from 'messagebird';
@@ -8,8 +8,7 @@ import bcrypt from "bcryptjs";
 import Postjob from "../Schema/postjob.js";
 // import authenticate from "../middleware/authenticate.js";
 import jwt from 'jsonwebtoken';
-// import  twilio from 'twilio';
-// const client = new twilio(process.env.accountSid, process.env.authToken);
+
 
 
 class userController {
@@ -68,31 +67,6 @@ class userController {
   }
 
 
-  // router.put('/board/:id', (req, res) => {
-  //   const {id: _id} = req.params // Assigning id to _id which is a es6 feature. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
-  //   const {position} = req.body
-
-  //   const newBoard = {
-  //     _id,
-  //     position
-  //   }
-
-  //   Board.findByIdAndUpdate(
-  //     _id,
-  //     newBoard,
-  //     (err, updatedBoard) => {
-  //       if (err) {
-  //         res.json({
-  //           newBoard,
-  //           success: false,
-  //           msg: 'Failed to update board'
-  //         })
-  //       } else {
-  //         res.json({newBoard, success: true, msg: 'Board added'})
-  //       }
-  //     }
-  //   )
-  // })
 
 
 
@@ -113,12 +87,7 @@ class userController {
 
   }
 
-  // console.log(req.user.role,"529")
-  //   res.send({"user":req.user}) 
-
-
-  // $api_url = "http://websms.textidea.com/app/smsapi/index.php?key=4630DB5DA691BB&campaign=8351&routeid=18&type=text&contacts=9302009469,&senderid=TEXTIT&msg=Hello+People%2C+have+a+great+day";
-
+ 
   static addFirstDetails = async (req, res) => {
 
     try {
@@ -196,13 +165,9 @@ const  body = {gst,cin,pan,udyan,pan,fssai,license}
 
         const isMatch = await bcrypt.compare(password, userLogin.password)
 
-        // const token = await userLogin.generateAuthToken();
+        
         const token = jwt.sign({ userID: userLogin._id }, process.env.SECRET_KEY, { expiresIn: '1d' })
-        // console.log(token); 
-        // res.cookie("jwtoken", token,{
-        //     expires:new Date(Date.now() + 2589000000),
-        //    httpOnly:true});
-
+        
         !isMatch ? res.status(400).send({ message: "error" }) : res.send({ "status": "success", "message": "Login Success", "token": token })
 
       }
@@ -215,29 +180,7 @@ const  body = {gst,cin,pan,udyan,pan,fssai,license}
 
 
 
-  // static login = async (req, res) => {
-  //   const { phonenumber } = req.body
-  //   const newPhoneNumber = "+91" + phonenumber
-  //   var params = {
-  //     template: 'Your Login OTP is %token',
-  //     timeout: 3000
-  //   };
-
-  //   messagebird.verify.create(newPhoneNumber, params,
-  //     (err, response) => {
-  //       if (err) {
-  //         // Could not send OTP e.g. Phone number Invalid
-  //         console.log("OTP Send Error:", err);
-  //         res.status(200).send({ "status": "failed", "message": "Unable to Send OTP" })
-  //       } else {
-  //         // OTP Send Success
-  //         console.log("OTP Send Response:", response);
-
-  //         res.status(200).send({ "status": "success", "message": "OTP Send Successfully", "id": response.id })
-  //       }
-  //     });
-  // }
-
+  
   static getpostjobs = async (req, res) => {
 
     const { _id } = req.user
@@ -247,8 +190,30 @@ const  body = {gst,cin,pan,udyan,pan,fssai,license}
       res.send(userLogin)
       console.log(userLogin)
     }
+}
 
+
+
+static getactivejobs = async (req, res) => {
+
+  const { _id } = req.user
+  const userLogin = await Postjob.find({createdBy:_id})
+  if (userLogin) {
+    console.log(userLogin)
+    for (let index = 0; index < userLogin.length; index++) {
+      const element = userLogin[index].JobActivation;
+      console.log(element)
+      if (element = "Active") {
+        res.send(element)
+        console.log(element)
+      }
+      
+    }
+
+   
   }
+}
+// JobActivation
 
   static getapplicationById = async (req, res) => {
     //console.log(req.user._id)
@@ -265,18 +230,7 @@ const  body = {gst,cin,pan,udyan,pan,fssai,license}
     
       }
 
-  // static getPaginatespostjobs = async (req, res) => {
-
-  //   const { _id } = req.user
-  //   const userLogin = await Postjob.find({ createdBy: _id })
-  //   if (userLogin) {
-
-  //     res.send(userLogin)
-  //     console.log(userLogin)
-  //   }
-
-  // }
-
+ 
 
 
 

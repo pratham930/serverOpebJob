@@ -26,7 +26,9 @@ const PostjobSchema = new mongoose.Schema({
 
 
 
-    nightshift: [],
+    nightshift:{
+        type:String
+    },
 
     WorkLocationType: {
         type: String,
@@ -87,16 +89,7 @@ const PostjobSchema = new mongoose.Schema({
         type: String,
     },
 
-    // sallareyMinuim: {
-    //     type: String,
-    // },
-    // sallareyMax: {
-    //     type: String,
-    // },
-    // sallareyAverage: {
-    //     type: String,
-    // },
-
+    
     joiningfee: {
         type: String,
         enum: ["Yes", "No"],
@@ -196,10 +189,7 @@ const PostjobSchema = new mongoose.Schema({
         enum: ["Call + whatsapp", "whatsapp", "whatsapp + website"]
     },
 
-    managecandidates: {
-        type: String,
-        enum: ["Call + whatsapp", "whatsapp", "whatsapp + website"]
-    },
+  
     createdBy: { type: String },
 
 

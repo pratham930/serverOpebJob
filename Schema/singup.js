@@ -32,8 +32,6 @@ verificationForm: [{
     udyan: { type: String },
     fssai: { type: String },
     license: { type: String }
-
-
 }],
 
 
