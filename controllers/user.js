@@ -193,26 +193,28 @@ static getjobsbyName = async (req, res) => {
   const { _id } = req.user
   console.log(_id)
   const userLogin = await Postjob.find({JobActivation:name})
-  if (userLogin) {
+
+  if (name == "All") {
+    const userLogin = await Postjob.find({createdBy:_id})
+    res.send(userLogin)
+  }
+
+  if (userLogin && name !== "All" ) {
     // console.log(userLogin)
 
 
    const job = userLogin.filter((e)=>{
       return(e.createdBy == _id)
     })
-    console.log(job)
-    res.send(job)
-    // for (let index = 0; index < userLogin.length; index++) {
-    //   const element = userLogin[index].JobActivation;
-    //   console.log(element)
-    //   if (element == name) {
-    //     res.send(element)
-    //     console.log(element)
-    //   }
-      
-    // }
 
-   
+    if (job){
+      console.log(job)
+      res.send(job)}
+    
+    
+      
+    
+    
   }
 }
 // JobActivation
