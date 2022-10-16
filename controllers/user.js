@@ -213,6 +213,8 @@ static getjobsbyName = async (req, res) => {
     
   }
 }
+
+
 // JobActivation
 
   static getapplicationById = async (req, res) => {
