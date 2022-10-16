@@ -139,7 +139,28 @@ const  body = {gst,cin,pan,udyan,pan,fssai,license}
   }
 
 
+  static EmployeeActivatejob = async (req, res) => {
 
+    try {
+      const { _id } = req.params
+
+      console.log(_id)
+      const userLogin = await Postjob.findOne({ _id })
+      // console.log(userLogin)
+
+      if (userLogin.JobActivation = "Expired") {
+        await Postjob.findByIdAndUpdate(_id, { $set: { JobActivation: 'Active', } })
+        res.send({ "status": "success", "message": "JobActivation succesfully" })
+      }
+      else {
+        res.send({ "status": "failed", "message": "All Fields are Required" })
+      }
+    }
+    catch (error) {
+      console.log(error)
+      return res.status(422).json({ error: "not found data" })
+    }
+  }
 
 
 
@@ -170,6 +191,9 @@ const  body = {gst,cin,pan,udyan,pan,fssai,license}
       console.log(error);
     }
   };
+
+
+
 
 
 

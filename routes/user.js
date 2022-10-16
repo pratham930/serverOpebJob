@@ -26,6 +26,9 @@ router.patch('/EditfirstfrombyId', authenticate, userController.EditfirstfrombyI
 
 
 router.patch('/editProfile', authenticate, userController.editProfile);
+router.patch('/EmployeeActivatejob', authenticate, userController.EmployeeActivatejob);
+
+
 router.post('/changeUserPassword', authenticate, userController.changeUserPassword);
 router.post('/addVerificationDetails', authenticate, userController.addVerificationDetails);
 
